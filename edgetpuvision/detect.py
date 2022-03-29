@@ -81,7 +81,7 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         if labels:
             caption = '%d%% %s' % (percent, labels[obj.id])
         else:
-            caption = '%d%% %d %d' % percent
+            caption = '%d%%' % percent
 
         color = get_color(obj.id)
         inference_width, inference_height = layout.inference_size
