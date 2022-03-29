@@ -97,6 +97,19 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         else:
             caption = '%d%% %d %d' % (percent, x + w/2, y + h/2)
 
+        if x + w/2 > 400 :
+            in1.value = True;
+            in2.value = False;
+            pwm2.frequency = 1e3;
+            pwm2.duty_cycle = .75;
+            pwm2.enable();
+        else :
+            in1.value = False;
+            in2.value = True;
+            pwm2.frequency = 1e3;
+            pwm2.duty_cycle = .75;
+            pwm2.enable();
+
         doc += svg.Rect(x=x, y=y, width=w, height=h,
                         style='stroke:%s' % color, _class='bbox')
         doc += svg.Rect(x=x, y=y+h ,
@@ -111,18 +124,7 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         # else:
         #     caption = '%d%% %d %d' % (percent, x+w/2, y+h/2)
 
-    if x + w/2 > 400 :
-        in1.value = True;
-        in2.value = False;
-        pwm2.frequency = 1e3;
-        pwm2.duty_cycle = .75;
-        pwm2.enable();
-    else :
-        in1.value = False;
-        in2.value = True;
-        pwm2.frequency = 1e3;
-        pwm2.duty_cycle = .75;
-        pwm2.enable();
+    
 
     ox = x0 + 20
     oy1, oy2 = y0 + 20 + font_size, y0 + height - 20
@@ -153,6 +155,8 @@ def print_results(inference_rate, objs):
         print('    %d: %s, area=%.2f' % (i, obj, obj.bbox.area))
 
 def render_gen(args):
+
+    
     fps_counter  = utils.avg_fps_counter(30)
 
     interpreters, titles = utils.make_interpreters(args.model)
