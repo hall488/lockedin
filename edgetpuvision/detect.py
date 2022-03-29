@@ -77,16 +77,19 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
     for obj in objs:    
 
+        
+
+        color = get_color(obj.id)
+        inference_width, inference_height = layout.inference_size
+        bbox = obj.bbox.scale(1.0 / inference_width, 1.0 / inference_height).scale(*layout.size)
+        x, y, w, h = bbox.xmin, bbox.ymin, bbox.width, bbox.height
+
         percent = int(100 * obj.score)
         if labels:
             caption = '%d%% %d%% %d%% %s' % (percent, bbox.xmin, bbox.ymin, labels[obj.id])
         else:
             caption = '%d%%' % percent
 
-        color = get_color(obj.id)
-        inference_width, inference_height = layout.inference_size
-        bbox = obj.bbox.scale(1.0 / inference_width, 1.0 / inference_height).scale(*layout.size)
-        x, y, w, h = bbox.xmin, bbox.ymin, bbox.width, bbox.height
         doc += svg.Rect(x=x, y=y, width=w, height=h,
                         style='stroke:%s' % color, _class='bbox')
         doc += svg.Rect(x=x, y=y+h ,
