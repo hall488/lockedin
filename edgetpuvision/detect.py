@@ -33,10 +33,16 @@ import time
 
 from pycoral.adapters import detect
 from pycoral.utils import edgetpu
+from periphery import GPIO
 
 from . import svg
 from . import utils
 from .apps import run_app
+
+in1 = GPIO("/dev/gpiochip0", 7, "out")
+in2 = GPIO("/dev/gpiochip0", 8, "out")
+pwm2 = PWM(1, 0)
+
 
 CSS_STYLES = str(svg.CssStyle({'.back': svg.Style(fill='black',
                                                   stroke='black',
@@ -103,6 +109,19 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         #     caption = '%d%% %d %d %s' % (percent, x+w/2, y+h/2, labels[obj.id])
         # else:
         #     caption = '%d%% %d %d' % (percent, x+w/2, y+h/2)
+
+    if x + w/2 > 400 :
+        in1.value = True;
+        in2.value = False;
+        pwm2.frequency = 1e3;
+        pwm2.duty_cycle = .75;
+        pwm2.enable();
+    else :
+        in1.value = False;
+        in2.value = True;
+        pwm2.frequency = 1e3;
+        pwm2.duty_cycle = .75;
+        pwm2.enable();
 
     ox = x0 + 20
     oy1, oy2 = y0 + 20 + font_size, y0 + height - 20
