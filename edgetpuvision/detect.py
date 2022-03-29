@@ -77,6 +77,12 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
     for obj in objs:    
 
+        percent = int(100 * obj.score)
+        if labels:
+            caption = '%d%% %s' % (percent, labels[obj.id])
+        else:
+            caption = '%d%% %d %d' % percent
+
         color = get_color(obj.id)
         inference_width, inference_height = layout.inference_size
         bbox = obj.bbox.scale(1.0 / inference_width, 1.0 / inference_height).scale(*layout.size)
@@ -89,11 +95,11 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         t += svg.TSpan(caption, dy='1em')
         doc += t
 
-        percent = int(100 * obj.score)
-        if labels:
-            caption = '%d%% %d %d %s' % (percent, x+w/2, y+h/2, labels[obj.id])
-        else:
-            caption = '%d%% %d %d' % (percent, x+w/2, y+h/2)
+        # percent = int(100 * obj.score)
+        # if labels:
+        #     caption = '%d%% %d %d %s' % (percent, x+w/2, y+h/2, labels[obj.id])
+        # else:
+        #     caption = '%d%% %d %d' % (percent, x+w/2, y+h/2)
 
     ox = x0 + 20
     oy1, oy2 = y0 + 20 + font_size, y0 + height - 20
