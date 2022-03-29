@@ -79,7 +79,7 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
         percent = int(100 * obj.score)
         if labels:
-            caption = '%d%% %s' % (percent, labels[obj.id])
+            caption = '%d%% %d%% %d%% %s' % (percent, bbox.xmin, bbox.ymin, labels[obj.id])
         else:
             caption = '%d%%' % percent
 
