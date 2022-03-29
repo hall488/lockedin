@@ -75,12 +75,7 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
                   font_size=font_size, font_family='monospace', font_weight=500)
     doc += defs
 
-    for obj in objs:
-        percent = int(100 * obj.score)
-        if labels:
-            caption = '%d%% %s' % (percent, labels[obj.id])
-        else:
-            caption = '%d%%' % percent
+    for obj in objs:    
 
         color = get_color(obj.id)
         inference_width, inference_height = layout.inference_size
@@ -93,6 +88,12 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         t = svg.Text(x=x, y=y+h, fill='black')
         t += svg.TSpan(caption, dy='1em')
         doc += t
+
+        percent = int(100 * obj.score)
+        if labels:
+            caption = '%d%% %d %d %s' % (percent, x+w/2, y+h/2, labels[obj.id])
+        else:
+            caption = '%d%% %d %d' % (percent, x+w/2, y+h/2)
 
     ox = x0 + 20
     oy1, oy2 = y0 + 20 + font_size, y0 + height - 20
