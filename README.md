@@ -16,10 +16,10 @@ dpkg-buildpackage -b -rfakeroot -us -uc -tc
 ```
 To run detect_server.py
 
-'''
+```
 export TEST_DATA="$HOME/lockedin/test_data"
-'''
-'''
+```
+```
 python3 -m edgetpuvision.detect_server \
 --model ${TEST_DATA}/ssd_mobilenet_v2_face_quant_postprocess_edgetpu.tflite
-'''
+```
