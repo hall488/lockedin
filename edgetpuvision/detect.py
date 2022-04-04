@@ -114,8 +114,8 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
         doc += svg.Rect(x=x, y=y, width=w, height=h,
                         style='stroke:%s' % color, _class='bbox')
-        #doc += svg.Rect(x=x, y=y+h ,
-        #                width=size_em(len(caption)), height='1.2em', fill=color)
+        doc += svg.Rect(x=x, y=y+h ,
+                        width=size_em(len(caption)), height='1.2em', fill=color)
         t = svg.Text(x=x, y=y+h, fill='black')
         t += svg.TSpan(caption, dy='1em')
         doc += t
