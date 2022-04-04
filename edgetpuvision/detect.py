@@ -158,7 +158,7 @@ def print_results(inference_rate, objs):
         print('    %d: %s, area=%.2f' % (i, obj, obj.bbox.area))
 
 def render_gen(args):
-
+    sys.stdout.write("renger gne enter")
     
     fps_counter  = utils.avg_fps_counter(30)
 
