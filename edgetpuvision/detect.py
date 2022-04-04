@@ -32,18 +32,18 @@ import itertools
 import time
 import sys
 
-from pycoral.adapters import detect
-from pycoral.utils import edgetpu
-from periphery import GPIO
-from periphery import PWM
+# from pycoral.adapters import detect
+# from pycoral.utils import edgetpu
+# from periphery import GPIO
+# from periphery import PWM
 
 from . import svg
 from . import utils
 from .apps import run_app
 
-in1 = GPIO("/dev/gpiochip2", 9, "out")
-in2 = GPIO("/dev/gpiochip4", 10, "out")
-pwm = PWM(0, 0)
+# in1 = GPIO("/dev/gpiochip2", 9, "out")
+# in2 = GPIO("/dev/gpiochip4", 10, "out")
+# pwm = PWM(0, 0)
 
 
 CSS_STYLES = str(svg.CssStyle({'.back': svg.Style(fill='black',
@@ -100,18 +100,18 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
         sys.stdout.write(str(x + w/2))
 
-        if x + w/2 > 400 :
-            in1.value = True;
-            in2.value = False;
-            pwm.frequency = 1e3;
-            pwm.duty_cycle = .75;
-            pwm.enable();
-        else :
-            in1.value = False;
-            in2.value = True;
-            pwm.frequency = 1e3;
-            pwm.duty_cycle = .75;
-            pwm.enable();
+        # if x + w/2 > 400 :
+        #     in1.value = True;
+        #     in2.value = False;
+        #     pwm.frequency = 1e3;
+        #     pwm.duty_cycle = .75;
+        #     pwm.enable();
+        # else :
+        #     in1.value = False;
+        #     in2.value = True;
+        #     pwm.frequency = 1e3;
+        #     pwm.duty_cycle = .75;
+        #     pwm.enable();
 
         doc += svg.Rect(x=x, y=y, width=w, height=h,
                         style='stroke:%s' % color, _class='bbox')
@@ -158,7 +158,6 @@ def print_results(inference_rate, objs):
         print('    %d: %s, area=%.2f' % (i, obj, obj.bbox.area))
 
 def render_gen(args):
-    sys.stdout.write("renger gne enter")
     
     fps_counter  = utils.avg_fps_counter(30)
 
