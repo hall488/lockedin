@@ -133,7 +133,7 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
     # Info
     lines = [
-        'Objects: %d' % len(objs),
+        'Objehhhhcts: %d' % len(objs),
         'Inference time: %.2f ms (%.2f fps)' % (inference_time * 1000, 1.0 / inference_time)
     ]
 
