@@ -1,14 +1,16 @@
 from periphery import GPIO
+from periphery import PWM
 import sys
 
 led = GPIO("/dev/gpiochip2", 13, "out")  # pin 37
-button = GPIO("/dev/gpiochip4", 13, "in")  # pin 36
+pwm = PWM(0, 0)
 
 try:
   while True:
-    led.write(True)
-    sys.stdout.write(str(button.read()))
+    pwm.frequency = 1e3
+    pwm.duty_cycle = .75
+    pwm.enable()
 finally:
   led.write(False)
   led.close()
-  button.close()
+  pwm.close()
