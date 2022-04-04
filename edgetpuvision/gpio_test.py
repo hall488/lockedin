@@ -1,6 +1,6 @@
 from periphery import GPIO
 
-led = GPIO("/dev/gpiochip2", 13, "out")  # pin 37
+led = GPIO("/home/dev/gpiochip2", 13, "out")  # pin 37
 
 try:
   while True:
