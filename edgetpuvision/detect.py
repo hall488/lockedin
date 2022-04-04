@@ -32,8 +32,8 @@ import itertools
 import time
 import sys
 
-# from pycoral.adapters import detect
-# from pycoral.utils import edgetpu
+from pycoral.adapters import detect
+from pycoral.utils import edgetpu
 # from periphery import GPIO
 # from periphery import PWM
 
@@ -120,13 +120,6 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         t = svg.Text(x=x, y=y+h, fill='black')
         t += svg.TSpan(caption, dy='1em')
         doc += t
-
-        percent = int(100 * obj.score)
-        if labels:
-            caption = '%d%% %d %d %s' % (percent, x+w/2, y+h/2, labels[obj.id])
-        else:
-            caption = '%d%% %d %d' % (percent, x+w/2, y+h/2)
-
     
 
     ox = x0 + 20
