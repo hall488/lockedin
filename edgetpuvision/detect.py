@@ -40,9 +40,9 @@ from . import svg
 from . import utils
 from .apps import run_app
 
-in1 = GPIO("/dev/gpiochip0", 7, "out")
-in2 = GPIO("/dev/gpiochip0", 8, "out")
-pwm2 = PWM(1, 0)
+in1 = GPIO("/dev/gpiochip2", 9, "out")
+in2 = GPIO("/dev/gpiochip4", 10, "out")
+pwm = PWM(0, 0)
 
 
 CSS_STYLES = str(svg.CssStyle({'.back': svg.Style(fill='black',
@@ -100,15 +100,15 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         if x + w/2 > 400 :
             in1.value = True;
             in2.value = False;
-            pwm2.frequency = 1e3;
-            pwm2.duty_cycle = .75;
-            pwm2.enable();
+            pwm.frequency = 1e3;
+            pwm.duty_cycle = .75;
+            pwm.enable();
         else :
             in1.value = False;
             in2.value = True;
-            pwm2.frequency = 1e3;
-            pwm2.duty_cycle = .75;
-            pwm2.enable();
+            pwm.frequency = 1e3;
+            pwm.duty_cycle = .75;
+            pwm.enable();
 
         doc += svg.Rect(x=x, y=y, width=w, height=h,
                         style='stroke:%s' % color, _class='bbox')
@@ -118,11 +118,11 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         t += svg.TSpan(caption, dy='1em')
         doc += t
 
-        # percent = int(100 * obj.score)
-        # if labels:
-        #     caption = '%d%% %d %d %s' % (percent, x+w/2, y+h/2, labels[obj.id])
-        # else:
-        #     caption = '%d%% %d %d' % (percent, x+w/2, y+h/2)
+        percent = int(100 * obj.score)
+        if labels:
+            caption = '%d%% %d %d %s' % (percent, x+w/2, y+h/2, labels[obj.id])
+        else:
+            caption = '%d%% %d %d' % (percent, x+w/2, y+h/2)
 
     
 
