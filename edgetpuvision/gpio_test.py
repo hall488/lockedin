@@ -1,13 +1,14 @@
-import board
-import digitalio
+from periphery import GPIO
+import sys
 
-led = digitalio.DigitalInOut(board.GPIO_P37)  # pin 37
-led.direction = digitalio.Direction.OUTPUT
-
+led = GPIO("/dev/gpiochip2", 13, "out")  # pin 37
+button = GPIO("/dev/gpiochip4", 13, "in")  # pin 36
 
 try:
   while True:
-    led.value = True;
+    led.write(True)
+    sys.stdout.write(button.read())
 finally:
-  led.value = False
-  led.deinit()
+  led.write(False)
+  led.close()
+  button.close()
