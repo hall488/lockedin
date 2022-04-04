@@ -34,16 +34,17 @@ import sys
 
 from pycoral.adapters import detect
 from pycoral.utils import edgetpu
-# from periphery import GPIO
-# from periphery import PWM
+
+from periphery import GPIO
+from periphery import PWM
 
 from . import svg
 from . import utils
 from .apps import run_app
 
-# in1 = GPIO("/dev/gpiochip2", 9, "out")
-# in2 = GPIO("/dev/gpiochip4", 10, "out")
-# pwm = PWM(0, 0)
+in1 = GPIO("/dev/gpiochip2", 9, "out")
+in2 = GPIO("/dev/gpiochip4", 10, "out")
+pwm = PWM(0, 0)
 
 
 CSS_STYLES = str(svg.CssStyle({'.back': svg.Style(fill='black',
@@ -85,6 +86,8 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
     for obj in objs:            
 
+        
+
         color = get_color(obj.id)
         inference_width, inference_height = layout.inference_size
         bbox = obj.bbox.scale(1.0 / inference_width, 1.0 / inference_height).scale(*layout.size)
@@ -92,25 +95,23 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
         percent = int(100 * obj.score)
         if labels:
-            #caption = '%d%% %d%% %d%% %s' % (percent, bbox.xmin, bbox.ymin, labels[obj.id])
-            caption = 'yo'
+            caption = '%d%% %d %d %s' % (percent, bbox.xmin, bbox.ymin, labels[obj.id])
         else:
-            #caption = '%d%% %d %d' % (percent, x + w/2, y + h/2)
-            caption = 'hi'
+            caption = '%d%% %d %d' % (percent, x + w/2, y + h/2)
 
 
-        # if x + w/2 > 400 :
-        #     in1.value = True;
-        #     in2.value = False;
-        #     pwm.frequency = 1e3;
-        #     pwm.duty_cycle = .75;
-        #     pwm.enable();
-        # else :
-        #     in1.value = False;
-        #     in2.value = True;
-        #     pwm.frequency = 1e3;
-        #     pwm.duty_cycle = .75;
-        #     pwm.enable();
+        if x + w/2 > 400 :
+            in1.value = True;
+            in2.value = False;
+            pwm.frequency = 1e3;
+            pwm.duty_cycle = .75;
+            pwm.enable();
+        else :
+            in1.value = False;
+            in2.value = True;
+            pwm.frequency = 1e3;
+            pwm.duty_cycle = .75;
+            pwm.enable();
 
         doc += svg.Rect(x=x, y=y, width=w, height=h,
                         style='stroke:%s' % color, _class='bbox')
