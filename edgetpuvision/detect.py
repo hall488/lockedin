@@ -97,21 +97,21 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         if labels:
             caption = '%d%% %d %d %s' % (percent, bbox.xmin, bbox.ymin, labels[obj.id])
         else:
-            caption = '%d%% %d %d' % (percent, x + w/2, y + h/2)
+            caption = '%d' % (x + w/2)
 
 
         if x + w/2 > 400 :
-            in1.value = True;
-            in2.value = False;
-            pwm.frequency = 1e3;
-            pwm.duty_cycle = .75;
-            pwm.enable();
+            in1.value = True
+            in2.value = False
+            pwm.frequency = 1e3
+            pwm.duty_cycle = .75
+            pwm.enable()
         else :
-            in1.value = False;
-            in2.value = True;
-            pwm.frequency = 1e3;
-            pwm.duty_cycle = .75;
-            pwm.enable();
+            in1.value = False
+            in2.value = True
+            pwm.frequency = 1e3
+            pwm.duty_cycle = .75
+            pwm.enable()
 
         doc += svg.Rect(x=x, y=y, width=w, height=h,
                         style='stroke:%s' % color, _class='bbox')
