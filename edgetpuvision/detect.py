@@ -30,6 +30,7 @@ import argparse
 import colorsys
 import itertools
 import time
+import sys
 
 from pycoral.adapters import detect
 from pycoral.utils import edgetpu
@@ -96,6 +97,8 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
             caption = '%d%% %d%% %d%% %s' % (percent, bbox.xmin, bbox.ymin, labels[obj.id])
         else:
             caption = '%d%% %d %d' % (percent, x + w/2, y + h/2)
+
+        sys.stdout.write(str(x + w/2))
 
         if x + w/2 > 400 :
             in1.value = True;
