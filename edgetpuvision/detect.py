@@ -97,7 +97,7 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         if labels:
             caption = '%d%% %d %d %s' % (percent, bbox.xmin, bbox.ymin, labels[obj.id])
         else:
-            caption = '%d' % (x + w/2)
+            caption = '%d %d' % (x + w/2, y + h/2)
 
 
         if x + w/2 > 400 :
