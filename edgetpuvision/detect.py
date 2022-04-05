@@ -84,9 +84,14 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
                   font_size=font_size, font_family='monospace', font_weight=500)
     doc += defs
 
-    for obj in objs:            
+    if len(objs) == 0:
+        in1.write(False)
+        in2.write(False)
+        pwm.frequency = 1e3
+        pwm.duty_cycle = .75
+        pwm.enable()
 
-        
+    for obj in objs:         
 
         color = get_color(obj.id)
         inference_width, inference_height = layout.inference_size
