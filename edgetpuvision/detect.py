@@ -101,14 +101,14 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
 
         if x + w/2 > 400 :
-            in1.value = True
-            in2.value = False
+            in1.write(True)
+            in2.write(False)
             pwm.frequency = 1e3
             pwm.duty_cycle = .75
             pwm.enable()
         else :
-            in1.value = False
-            in2.value = True
+            in1.write(False)
+            in2.write(True)
             pwm.frequency = 1e3
             pwm.duty_cycle = .75
             pwm.enable()
