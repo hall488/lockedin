@@ -42,9 +42,16 @@ from . import svg
 from . import utils
 from .apps import run_app
 
-in1 = GPIO("/dev/gpiochip2", 9, "out")
-in2 = GPIO("/dev/gpiochip4", 10, "out")
-pwm = PWM(0, 0)
+
+#google "Coral GPIO"
+in1 = GPIO("/dev/gpiochip2", 9, "out") #pin 17
+in2 = GPIO("/dev/gpiochip4", 10, "out") #pin 18
+pwm1 = PWM(0, 0) #pin32
+
+in3 = GPIO("/dev/gpiochip0", 7, "in") #pin 29
+in4 = GPIO("/dev/gpiochip0", 8, "in") #pin 31
+pwm2 = PWM(1, 0) #pin33
+
 
 
 CSS_STYLES = str(svg.CssStyle({'.back': svg.Style(fill='black',
@@ -105,18 +112,9 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
             caption = '%d %d' % (x + w/2, y + h/2)
 
 
-        if x + w/2 > 400 :
-            in1.write(True)
-            in2.write(False)
-            pwm.frequency = 1e3
-            pwm.duty_cycle = .75
-            pwm.enable()
-        else :
-            in1.write(False)
-            in2.write(True)
-            pwm.frequency = 1e3
-            pwm.duty_cycle = .75
-            pwm.enable()
+        motor_IO(x, y, w, h)
+
+        
 
         doc += svg.Rect(x=x, y=y, width=w, height=h,
                         style='stroke:%s' % color, _class='bbox')
@@ -149,6 +147,35 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         doc += svg.Text(line, x=ox, y=y, fill='white')
 
     return str(doc)
+
+def motor_IO(x, y, w, h):
+    if x + w/2 > 400 :
+        in1.write(True)
+        in2.write(False)
+        pwm1.frequency = 1e3
+        pwm1.duty_cycle = .75
+        pwm1.enable()
+    else :
+        in1.write(False)
+        in2.write(True)
+        pwm1.frequency = 1e3
+        pwm1.duty_cycle = .75
+        pwm1.enable()
+
+    if y + h/2 > 400 :
+        in3.write(True)
+        in4.write(False)
+        pwm2.frequency = 1e3
+        pwm2.duty_cycle = .75
+        pwm2.enable()
+    else :
+        in3.write(False)
+        in4.write(True)
+        pwm2.frequency = 1e3
+        pwm2.duty_cycle = .75
+        pwm2.enable()
+    
+
 
 def print_results(inference_rate, objs):
     print('\nInference (rate=%.2f fps):' % inference_rate)
