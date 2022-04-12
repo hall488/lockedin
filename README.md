@@ -23,3 +23,7 @@ export TEST_DATA="$HOME/lockedin/test_data"
 python3 -m edgetpuvision.detect_server \
 --model ${TEST_DATA}/ssd_mobilenet_v2_face_quant_postprocess_edgetpu.tflite
 ```
+```
+python3 -m edgetpuvision.detect \
+--model ${TEST_DATA}/ssd_mobilenet_v2_face_quant_postprocess_edgetpu.tflite
+```
