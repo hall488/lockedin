@@ -48,8 +48,8 @@ in1 = GPIO("/dev/gpiochip2", 9, "out") #pin 17
 in2 = GPIO("/dev/gpiochip4", 10, "out") #pin 18
 pwm1 = PWM(0, 0) #pin32
 
-in3 = GPIO("/dev/gpiochip0", 7, "in") #pin 29
-in4 = GPIO("/dev/gpiochip0", 8, "in") #pin 31
+in3 = GPIO("/dev/gpiochip0", 7, "out") #pin 29
+in4 = GPIO("/dev/gpiochip0", 8, "out") #pin 31
 pwm2 = PWM(1, 0) #pin33
 
 
