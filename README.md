@@ -2,6 +2,11 @@
 
 Python API to run inference on image data coming from the camera.
 
+## Model
+```
+wget -P ${TEST_DATA}/ https://github.com/google-coral/test_data/raw/master/ssd_mobilenet_v2_face_quant_postprocess_edgetpu.tflite
+```
+
 ## Build
 ```
 python3 setup.py sdist
