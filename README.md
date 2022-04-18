@@ -22,7 +22,7 @@ dpkg-buildpackage -b -rfakeroot -us -uc -tc
 To run detect_server.py
 
 ```
-export TEST_DATA="/mnt/home/mendel/lockedin/test_data"
+export TEST_DATA="~/mnt/home/mendel/lockedin/test_data"
 ```
 ```
 python3 -m edgetpuvision.detect_server \
