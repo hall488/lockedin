@@ -9,6 +9,12 @@ wget -P ${TEST_DATA}/ https://github.com/google-coral/test_data/raw/master/ssd_m
 
 ## Build
 ```
+cd ..
+cd ..
+cd mnt
+cd home
+cd mendel
+cd lockedin
 export TEST_DATA="~/mnt/home/mendel/lockedin/test_data"
 sudo mkfs.ext4 /dev/mmcblk1
 sudo mount /dev/mmcblk1 /mnt
