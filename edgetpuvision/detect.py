@@ -91,18 +91,18 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
                   font_size=font_size, font_family='monospace', font_weight=500)
     doc += defs
 
-    if len(objs) == 0:
-        in1.write(False)
-        in2.write(False)
-        pwm1.frequency = 1e3
-        pwm1.duty_cycle = .75
-        pwm1.enable()
+    # if len(objs) == 0:
+    #     in1.write(False)
+    #     in2.write(False)
+    #     pwm1.frequency = 1e3
+    #     pwm1.duty_cycle = .75
+    #     pwm1.enable()
 
-        in3.write(False)
-        in4.write(False)
-        pwm2.frequency = 1e3
-        pwm2.duty_cycle = .75
-        pwm2.enable()
+    #     in3.write(False)
+    #     in4.write(False)
+    #     pwm2.frequency = 1e3
+    #     pwm2.duty_cycle = .75
+    #     pwm2.enable()
 
     for obj in objs:         
 
