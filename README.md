@@ -15,7 +15,7 @@ cd mnt
 cd home
 cd mendel
 cd lockedin
-export TEST_DATA="~/mnt/home/mendel/lockedin/test_data"
+export TEST_DATA="test_data"
 sudo mkfs.ext4 /dev/mmcblk1
 sudo mount /dev/mmcblk1 /mnt
 sudo rsync -aXS --exclude='/*/.gvfs' /home  /mnt
