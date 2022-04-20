@@ -33,7 +33,7 @@ import time
 import sys
 
 from flask import Flask, render_template, request
-app = Flask(__name__)
+
 
 from pycoral.adapters import detect
 from pycoral.utils import edgetpu
@@ -48,7 +48,7 @@ from .apps import run_app
 
 
 #google "Coral GPIO"
-#in1 = GPIO("/dev/gpiochip2", 9, "out") #pin 17
+in1 = GPIO("/dev/gpiochip2", 9, "out") #pin 17
 in2 = GPIO("/dev/gpiochip4", 10, "out") #pin 18
 pwm1 = PWM(0, 0) #pin32
 
@@ -56,7 +56,7 @@ in3 = GPIO("/dev/gpiochip0", 7, "out") #pin 29
 in4 = GPIO("/dev/gpiochip0", 8, "out") #pin 31
 pwm2 = PWM(1, 0) #pin33
 
-
+app = Flask(__name__)
 
 CSS_STYLES = str(svg.CssStyle({'.back': svg.Style(fill='black',
                                                   stroke='black',
@@ -160,13 +160,13 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
 def motor_IO(x, y, w, h):
     if x + w/2 > 400 :
-        #in1.write(True)
+        in1.write(True)
         in2.write(False)
         pwm1.frequency = 1e3
         pwm1.duty_cycle = .75
         pwm1.enable()
     else :
-        #in1.write(False)
+        in1.write(False)
         in2.write(True)
         pwm1.frequency = 1e3
         pwm1.duty_cycle = .75
