@@ -32,7 +32,8 @@ import itertools
 import time
 import sys
 
-
+from flask import Flask, render_template, request
+app = Flask(__name__)
 
 from pycoral.adapters import detect
 from pycoral.utils import edgetpu
@@ -55,8 +56,7 @@ in3 = GPIO("/dev/gpiochip0", 7, "out") #pin 29
 in4 = GPIO("/dev/gpiochip0", 8, "out") #pin 31
 pwm2 = PWM(1, 0) #pin33
 
-from flask import Flask, render_template, request
-app = Flask(__name__)
+
 
 CSS_STYLES = str(svg.CssStyle({'.back': svg.Style(fill='black',
                                                   stroke='black',
@@ -259,13 +259,13 @@ def add_render_gen_args(parser):
     parser.add_argument('--print', default=False, action='store_true',
                         help='Print inference results')
 
-@app.route("/")
+#@app.route("/")
 def main():
     run_app(add_render_gen_args, render_gen)
-    templateData = {
-    }
+    #templateData = {
+    #}
    # Pass the template data into the template main.html and return it to the user
-    return render_template('main.html', **templateData)
+    #return render_template('main.html', **templateData)
 
 @app.route("/<changePin>/<action>")
 def action(changePin, action):
