@@ -48,7 +48,7 @@ from .apps import run_app
 
 
 #google "Coral GPIO"
-in1 = GPIO("/dev/gpiochip2", 9, "out") #pin 17
+#in1 = GPIO("/dev/gpiochip2", 9, "out") #pin 17
 in2 = GPIO("/dev/gpiochip4", 10, "out") #pin 18
 pwm1 = PWM(0, 0) #pin32
 
@@ -160,13 +160,13 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
 def motor_IO(x, y, w, h):
     if x + w/2 > 400 :
-        in1.write(True)
+        #in1.write(True)
         in2.write(False)
         pwm1.frequency = 1e3
         pwm1.duty_cycle = .75
         pwm1.enable()
     else :
-        in1.write(False)
+        #in1.write(False)
         in2.write(True)
         pwm1.frequency = 1e3
         pwm1.duty_cycle = .75
@@ -271,7 +271,8 @@ def main():
 def action(changePin, action):
     print("yo")
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5003, debug=True)
+if __name__ == '__main__':    
+    app.run(host='0.0.0.0', port=5000, debug=True)
     main()
+    
     
