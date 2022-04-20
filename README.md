@@ -29,6 +29,7 @@ sudo swapon /home/swapfile
 sudo sysctl vm.swappiness=10
 python3 setup.py sdist
 python3 setup.py bdist
+export FLASK_ENV=development
 
 ```
 
