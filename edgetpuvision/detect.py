@@ -32,8 +32,7 @@ import itertools
 import time
 import sys
 
-from flask import Flask, render_template, request
-app = Flask(__name__)
+
 
 from pycoral.adapters import detect
 from pycoral.utils import edgetpu
@@ -261,7 +260,7 @@ def add_render_gen_args(parser):
 
 #@app.route("/")
 def main():
-    app.run(host='0.0.0.0', port=3000, debug=True)
+    
     run_app(add_render_gen_args, render_gen)
     
     #templateData = {

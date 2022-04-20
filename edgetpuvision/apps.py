@@ -22,6 +22,10 @@ from .streaming.server import StreamingServer
 
 from . import svg
 
+from flask import Flask, render_template, request
+app = Flask(__name__)
+
+
 EMPTY_SVG = str(svg.Svg())
 
 def run_server(add_render_gen_args, render_gen):
@@ -63,6 +67,7 @@ def run_app(add_render_gen_args, render_gen):
                         help='Display mode')
     add_render_gen_args(parser)
     args = parser.parse_args()
+    app.run(host='0.0.0.0', port=3000, debug=True)
 
     if not run_gen(render_gen(args),
                    source=args.source,
