@@ -49,6 +49,6 @@ python3 -m edgetpuvision.detect_server \
 ```
 ```
 python3 -m edgetpuvision.detect \
---source /dev/video1:YUYV:1920x1080:5/1  \
+--source /dev/video1:YUY2:1920x1080:5/1  \
 --model ${TEST_DATA}/ssd_mobilenet_v2_face_quant_postprocess_edgetpu.tflite
 ```
