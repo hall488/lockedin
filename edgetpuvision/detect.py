@@ -32,7 +32,6 @@ import itertools
 import time
 import sys
 
-from flask import Flask, render_template, request
 
 
 from pycoral.adapters import detect
@@ -56,6 +55,7 @@ in3 = GPIO("/dev/gpiochip0", 7, "out") #pin 29
 in4 = GPIO("/dev/gpiochip0", 8, "out") #pin 31
 pwm2 = PWM(1, 0) #pin33
 
+from flask import Flask, render_template, request
 app = Flask(__name__)
 
 CSS_STYLES = str(svg.CssStyle({'.back': svg.Style(fill='black',
