@@ -32,8 +32,8 @@ import itertools
 import time
 import sys
 
-from flask import Flask, render_template, request
-app = Flask(__name__)
+#from flask import Flask, render_template, request
+#app = Flask(__name__)
 
 from pycoral.adapters import detect
 from pycoral.utils import edgetpu
