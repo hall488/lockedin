@@ -31,7 +31,8 @@ import colorsys
 import itertools
 import time
 import sys
-import blynklib
+
+from flask import Flask, render_template, request
 
 from pycoral.adapters import detect
 from pycoral.utils import edgetpu
@@ -43,10 +44,7 @@ from . import svg
 from . import utils
 from .apps import run_app
 
-#blynk
-BLYNK_AUTH = '<ltSFcLV6qgtiMdOfCr2tp7X8Wja2ReAU>'
-blynk = blynklib.Blynk(BLYNK_AUTH)
-
+app = Flask(__name__)
 
 #google "Coral GPIO"
 in1 = GPIO("/dev/gpiochip2", 9, "out") #pin 17
@@ -184,12 +182,7 @@ def motor_IO(x, y, w, h):
         in4.write(True)
         pwm2.frequency = 1e3
         pwm2.duty_cycle = .75
-        pwm2.enable()
-
-@blynk.handle_event('test25')
-def blynk_test_function():
-    print("testcompl")
-    
+        pwm2.enable()    
 
 
 def print_results(inference_rate, objs):
@@ -267,7 +260,8 @@ def add_render_gen_args(parser):
 
 def main():
     run_app(add_render_gen_args, render_gen)
-    blynk.run()
 
 if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=80, debug=True)
     main()
+    
