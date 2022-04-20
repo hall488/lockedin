@@ -33,6 +33,7 @@ import time
 import sys
 
 from flask import Flask, render_template, request
+app = Flask(__name__)
 
 from pycoral.adapters import detect
 from pycoral.utils import edgetpu
@@ -44,7 +45,7 @@ from . import svg
 from . import utils
 from .apps import run_app
 
-app = Flask(__name__)
+
 
 #google "Coral GPIO"
 in1 = GPIO("/dev/gpiochip2", 9, "out") #pin 17
