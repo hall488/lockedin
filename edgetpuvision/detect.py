@@ -31,6 +31,7 @@ import colorsys
 import itertools
 import time
 import sys
+import blynklib
 
 from pycoral.adapters import detect
 from pycoral.utils import edgetpu
@@ -41,6 +42,10 @@ from periphery import PWM
 from . import svg
 from . import utils
 from .apps import run_app
+
+#blynk
+BLYNK_AUTH = '<kqcjIhqkH6ZMEnBtw-hP9qALz9LPQfFX>'
+blynk = blynklib.Blynk(BLYNK_AUTH)
 
 
 #google "Coral GPIO"
@@ -180,6 +185,10 @@ def motor_IO(x, y, w, h):
         pwm2.frequency = 1e3
         pwm2.duty_cycle = .75
         pwm2.enable()
+
+@blynk.handle_event('test25')
+def blynk_test_function():
+    print("testcompl")
     
 
 
