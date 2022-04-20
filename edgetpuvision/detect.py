@@ -267,6 +267,7 @@ def add_render_gen_args(parser):
 
 def main():
     run_app(add_render_gen_args, render_gen)
+    blynk.run()
 
 if __name__ == '__main__':
     main()
