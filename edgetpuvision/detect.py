@@ -262,6 +262,7 @@ def add_render_gen_args(parser):
 #@app.route("/")
 def main():
     run_app(add_render_gen_args, render_gen)
+    app.run(host='0.0.0.0', port=5000, debug=True)
     #templateData = {
     #}
    # Pass the template data into the template main.html and return it to the user
@@ -271,8 +272,7 @@ def main():
 #def action(changePin, action):
 #    print("yo")
 
-if __name__ == '__main__':    
-    app.run(host='0.0.0.0', port=5000, debug=True)
+if __name__ == '__main__':        
     main()
     
     
