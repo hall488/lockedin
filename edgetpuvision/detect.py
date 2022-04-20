@@ -44,7 +44,7 @@ from . import utils
 from .apps import run_app
 
 #blynk
-BLYNK_AUTH = '<kqcjIhqkH6ZMEnBtw-hP9qALz9LPQfFX>'
+BLYNK_AUTH = '<ltSFcLV6qgtiMdOfCr2tp7X8Wja2ReAU>'
 blynk = blynklib.Blynk(BLYNK_AUTH)
 
 
