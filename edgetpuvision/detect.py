@@ -32,7 +32,8 @@ import itertools
 import time
 import sys
 
-
+from flask import Flask, render_template, request
+app = Flask(__name__)
 
 from pycoral.adapters import detect
 from pycoral.utils import edgetpu
@@ -258,7 +259,7 @@ def add_render_gen_args(parser):
     parser.add_argument('--print', default=False, action='store_true',
                         help='Print inference results')
 
-#@app.route("/")
+@app.route("/")
 def main():
     
     run_app(add_render_gen_args, render_gen)
@@ -272,7 +273,8 @@ def main():
 #def action(changePin, action):
 #    print("yo")
 
-if __name__ == '__main__':        
+if __name__ == '__main__':  
+    app.run(host='0.0.0.0', port=3000, debug=True)      
     main()
     
     
