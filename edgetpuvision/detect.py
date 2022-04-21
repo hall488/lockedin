@@ -164,7 +164,7 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
 
 def encoder():
-    global state
+    global old_state
     global position
     state = old_state & 3
     if(enc1) : state |= 4
