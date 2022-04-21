@@ -184,7 +184,7 @@ def encoder():
 
 
 def motor_IO(x, y):
-    sys.stdout.write(str(encoder()))
+    sys.stdout.write("str(encoder())")
     if x > 500 :
         in1.write(True)
         in2.write(False)
