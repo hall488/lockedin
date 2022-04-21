@@ -35,8 +35,8 @@ import sys
 from pycoral.adapters import detect
 from pycoral.utils import edgetpu
 
-#from periphery import GPIO
-#from periphery import PWM
+from periphery import GPIO
+from periphery import PWM
 
 from . import svg
 from . import utils
