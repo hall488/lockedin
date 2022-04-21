@@ -122,7 +122,7 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         if labels:
             caption = '%d%% %d %d %s' % (percent, bbox.xmin, bbox.ymin, labels[obj.id])
         else:
-            caption = '%d %d' % (x + w/2, y + h/2)
+            caption = '%d %d %d' % (x + w/2, y + h/2, encoder())
 
 
         motor_IO(x +w/2, y+h/2)
@@ -200,7 +200,7 @@ def encoder():
 
 
 def motor_IO(x, y):
-    sys.stdout.write(str(encoder()))
+    #sys.stdout.write(str(encoder()))
     if x > 500 :
         in1.write(True)
         in2.write(False)
