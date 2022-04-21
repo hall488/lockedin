@@ -119,7 +119,7 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
             caption = '%d %d' % (x + w/2, y + h/2)
 
 
-        motor_IO(x, y, w, h)
+        motor_IO(x +w/2, y+h/2)
 
         
 
@@ -155,32 +155,45 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
     return str(doc)
 
-def motor_IO(x, y, w, h):
-    if x + w/2 > 400 :
+def motor_IO(x, y):
+    if x > 500 :
         in1.write(True)
         in2.write(False)
         pwm1.frequency = 1e3
-        pwm1.duty_cycle = .75
+        pwm1.duty_cycle = .3
         pwm1.enable()
-    else :
+    elif  x < 300:
         in1.write(False)
         in2.write(True)
         pwm1.frequency = 1e3
-        pwm1.duty_cycle = .75
+        pwm1.duty_cycle = .3
+        pwm1.enable()
+    else:
+        in1.write(False)
+        in2.write(False)
+        pwm1.frequency = 1e3
+        pwm1.duty_cycle = .3
         pwm1.enable()
 
-    if y + h/2 > 400 :
-        in3.write(True)
-        in4.write(False)
-        pwm2.frequency = 1e3
-        pwm2.duty_cycle = .75
-        pwm2.enable()
-    else :
+    if y > 450 :
         in3.write(False)
         in4.write(True)
         pwm2.frequency = 1e3
-        pwm2.duty_cycle = .75
-        pwm2.enable()    
+        pwm2.duty_cycle = 1.0
+        pwm2.enable()
+    elif y < 350:
+        in3.write(True)
+        in4.write(False)
+        pwm2.frequency = 1e3
+        pwm2.duty_cycle = 1.0
+        pwm2.enable()
+    else:
+        in3.write(False)
+        in4.write(False)
+        pwm2.frequency = 1e3
+        pwm2.duty_cycle = 1.0
+        pwm2.enable()
+
 
 
 def print_results(inference_rate, objs):
