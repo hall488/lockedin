@@ -195,7 +195,10 @@ def encoder():
     elif state==9:
         position -= 2
     else:
-        return position
+        if(position == None) : 
+            return 0
+        else:
+            return position
 
 
 
