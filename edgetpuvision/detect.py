@@ -29,9 +29,9 @@ python3 -m edgetpuvision.detect \
 import argparse
 import colorsys
 import itertools
+from pickletools import uint8
 import time
 import sys
-import Encoder
 
 from pycoral.adapters import detect
 from pycoral.utils import edgetpu
@@ -56,8 +56,8 @@ pwm2 = PWM(1, 0) #pin33
 
 enc1 = GPIO("/dev/gpiochip0", 6, "in") #pin13
 enc2 = GPIO("/dev/gpiochip4", 13, "in") #pin36
-
-enc = Encoder.Encoder(enc1, enc2)
+old_state = 0
+position = 0
 
 
 CSS_STYLES = str(svg.CssStyle({'.back': svg.Style(fill='black',
@@ -160,14 +160,38 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
     return str(doc)
 
+
+
+def encoder():
+    state = old_state & 3
+    if(enc1) : state |= 4
+    if(enc2) : state |= 8
+    old_state = state >> 2
+    match state:
+        case 1: position += 1; return position
+        case 7: position += 1; return position
+        case 8: position += 1; return position
+        case 14: position += 1; return position
+        case 2: position -= 1; return position
+        case 4: position -= 1; return position
+        case 11: position -= 1; return position
+        case 13: position -= 1; return position
+        case 3: position += 2; return position
+        case 12: position += 2; return position
+        case 6: position -= 2; return position
+        case 9: position -= 2; return position
+    return position
+
+
+
 def motor_IO(x, y):
+    sys.std.writelines(encoder())
     if x > 500 :
         in1.write(True)
         in2.write(False)
         pwm1.frequency = 1e3
         pwm1.duty_cycle = .7
         pwm1.enable()
-        sys.stdout.writelines(str(enc.read()))
     elif  x < 300:
         in1.write(False)
         in2.write(True)
