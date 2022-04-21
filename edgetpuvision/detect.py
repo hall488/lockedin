@@ -122,12 +122,9 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         if labels:
             caption = '%d%% %d %d %s' % (percent, bbox.xmin, bbox.ymin, labels[obj.id])
         else:
-            caption = '%d %d %d %d  %d' % (x + w/2, y + h/2, enc1.read(), enc2.read(), int(encoder() or 0))
-
+            caption = '%d %d' % (x + w/2, y + h/2)
 
         motor_IO(x +w/2, y+h/2)
-
-        
 
         doc += svg.Rect(x=x, y=y, width=w, height=h,
                         style='stroke:%s' % color, _class='bbox')
@@ -200,7 +197,6 @@ def encoder():
 
 
 def motor_IO(x, y):
-    #sys.stdout.write(str(encoder()))
     if x > 500 :
         in1.write(True)
         in2.write(False)
