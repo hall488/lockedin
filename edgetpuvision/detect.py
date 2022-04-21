@@ -31,6 +31,7 @@ import colorsys
 import itertools
 import time
 import sys
+import Encoder
 
 from pycoral.adapters import detect
 from pycoral.utils import edgetpu
@@ -53,6 +54,10 @@ in3 = GPIO("/dev/gpiochip0", 7, "out") #pin 29
 in4 = GPIO("/dev/gpiochip0", 8, "out") #pin 31
 pwm2 = PWM(1, 0) #pin33
 
+enc1 = GPIO("/dev/gpiochip0", 6, "in") #pin13
+enc2 = GPIO("/dev/gpiochip4", 13, "in") #pin36
+
+enc = Encoder.Encoder(enc1, enc2)
 
 
 CSS_STYLES = str(svg.CssStyle({'.back': svg.Style(fill='black',
@@ -157,12 +162,12 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
 def motor_IO(x, y):
     if x > 500 :
-        sys.stdout.write("Hello")
         in1.write(True)
         in2.write(False)
         pwm1.frequency = 1e3
         pwm1.duty_cycle = .7
         pwm1.enable()
+        sys.stdout.writelines(str(enc.read()))
     elif  x < 300:
         in1.write(False)
         in2.write(True)
