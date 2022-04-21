@@ -160,13 +160,13 @@ def motor_IO(x, y):
         in1.write(True)
         in2.write(False)
         pwm1.frequency = 1e3
-        pwm1.duty_cycle = .3
+        pwm1.duty_cycle = .1
         pwm1.enable()
     elif  x < 300:
         in1.write(False)
         in2.write(True)
         pwm1.frequency = 1e3
-        pwm1.duty_cycle = .3
+        pwm1.duty_cycle = .1
         pwm1.enable()
     else:
         in1.write(False)
@@ -176,14 +176,14 @@ def motor_IO(x, y):
         pwm1.enable()
 
     if y > 450 :
-        in3.write(False)
-        in4.write(True)
+        in3.write(True)
+        in4.write(False)
         pwm2.frequency = 1e3
         pwm2.duty_cycle = 1.0
         pwm2.enable()
     elif y < 350:
-        in3.write(True)
-        in4.write(False)
+        in3.write(False)
+        in4.write(True)
         pwm2.frequency = 1e3
         pwm2.duty_cycle = 1.0
         pwm2.enable()
