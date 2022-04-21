@@ -166,7 +166,7 @@ def encoder():
     state = old_state & 3
     if(enc1) : state |= 4
     if(enc2) : state |= 8
-    #old_state = (state >> 2)    
+    old_state = (state >> 2)    
     if state==1: position += 1; return position
     elif state==7: position += 1; return position
     elif state==8: position += 1; return position
@@ -184,7 +184,7 @@ def encoder():
 
 
 def motor_IO(x, y):
-    sys.std.write("testytest")
+    sys.stdout.write(str(encoder()))
     if x > 500 :
         in1.write(True)
         in2.write(False)
