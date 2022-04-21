@@ -56,6 +56,7 @@ pwm2 = PWM(1, 0) #pin33
 
 enc1 = GPIO("/dev/gpiochip0", 6, "in") #pin13
 enc2 = GPIO("/dev/gpiochip4", 13, "in") #pin36
+
 old_state = 0
 position = 0
 
@@ -164,6 +165,7 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
 def encoder():
     state = 1
+    global position
     # state = old_state & 3
     # if(enc1) : state |= 4
     # if(enc2) : state |= 8
