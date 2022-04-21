@@ -58,7 +58,7 @@ pwm2 = PWM(1, 0) #pin33
 enc1 = GPIO("/dev/gpiochip0", 6, "in") #pin13
 enc2 = GPIO("/dev/gpiochip4", 13, "in") #pin36
 
-spi = SPI("/dev/spidev1.0", 0, 1000000)
+# spi = SPI("/dev/spidev1.0", 0, 1000000)
 
 old_state = 0
 position = 0
