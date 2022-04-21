@@ -57,8 +57,8 @@ pwm2 = PWM(1, 0) #pin33
 enc1 = GPIO("/dev/gpiochip0", 6, "in") #pin13
 enc2 = GPIO("/dev/gpiochip4", 13, "in") #pin36
 
-# old_state = 0
-# position = 0
+old_state = 0
+position = 0
 
 
 CSS_STYLES = str(svg.CssStyle({'.back': svg.Style(fill='black',
@@ -122,7 +122,7 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         if labels:
             caption = '%d%% %d %d %s' % (percent, bbox.xmin, bbox.ymin, labels[obj.id])
         else:
-            caption = '%d %d' % (x + w/2, y + h/2)
+            caption = '%d %d %d' % (x + w/2, y + h/2, int(encoder() or 0))
 
         motor_IO(x +w/2, y+h/2)
 
@@ -160,39 +160,39 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
 
 
-# def encoder():
-#     global old_state
-#     global position
-#     state = old_state & 3
-#     if(enc1.read()) : state |= 4
-#     if(enc2.read()) : state |= 8
-#     old_state = (state >> 2)    
-#     if state==1: 
-#         position += 1
-#     elif state==7:
-#         position += 1
-#     elif state==8:
-#         position += 1
-#     elif state==14: 
-#         position += 1
-#     elif state==2:
-#         position -= 1
-#     elif state==4:
-#         position -= 1
-#     elif state==11:
-#         position -= 1
-#     elif state==13:
-#         position -= 1
-#     elif state==3:
-#         position += 2
-#     elif state==12:
-#         position += 2
-#     elif state==6:
-#         position -= 2
-#     elif state==9:
-#         position -= 2
-#     else:
-#         return position
+def encoder():
+    global old_state
+    global position
+    state = old_state & 3
+    if(enc1.read()) : state |= 4
+    if(enc2.read()) : state |= 8
+    old_state = (state >> 2)    
+    if state==1: 
+        position += 1
+    elif state==7:
+        position += 1
+    elif state==8:
+        position += 1
+    elif state==14: 
+        position += 1
+    elif state==2:
+        position -= 1
+    elif state==4:
+        position -= 1
+    elif state==11:
+        position -= 1
+    elif state==13:
+        position -= 1
+    elif state==3:
+        position += 2
+    elif state==12:
+        position += 2
+    elif state==6:
+        position -= 2
+    elif state==9:
+        position -= 2
+    else:
+        return position
 
 
 
