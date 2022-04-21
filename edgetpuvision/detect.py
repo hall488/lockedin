@@ -163,24 +163,23 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
 
 def encoder():
-    # state = old_state & 3
-    # if(enc1) : state |= 4
-    # if(enc2) : state |= 8
-    # old_state = (state >> 2)
-    # match state:
-    #     case 1: position += 1; return position
-    #     case 7: position += 1; return position
-    #     case 8: position += 1; return position
-    #     case 14: position += 1; return position
-    #     case 2: position -= 1; return position
-    #     case 4: position -= 1; return position
-    #     case 11: position -= 1; return position
-    #     case 13: position -= 1; return position
-    #     case 3: position += 2; return position
-    #     case 12: position += 2; return position
-    #     case 6: position -= 2; return position
-    #     case 9: position -= 2; return position
-    return position
+    state = old_state & 3
+    if(enc1) : state |= 4
+    if(enc2) : state |= 8
+    old_state = (state >> 2)    
+    if 1: position += 1; return position
+    elif 7: position += 1; return position
+    elif 8: position += 1; return position
+    elif 14: position += 1; return position
+    elif 2: position -= 1; return position
+    elif 4: position -= 1; return position
+    elif 11: position -= 1; return position
+    elif 13: position -= 1; return position
+    elif 3: position += 2; return position
+    elif 12: position += 2; return position
+    elif 6: position -= 2; return position
+    elif 9: position -= 2; return position
+    else : return position
 
 
 
