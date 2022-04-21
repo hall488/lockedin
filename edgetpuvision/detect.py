@@ -38,6 +38,7 @@ from pycoral.utils import edgetpu
 
 from periphery import GPIO
 from periphery import PWM
+from periphery import SPI
 
 from . import svg
 from . import utils
@@ -56,6 +57,8 @@ pwm2 = PWM(1, 0) #pin33
 
 enc1 = GPIO("/dev/gpiochip0", 6, "in") #pin13
 enc2 = GPIO("/dev/gpiochip4", 13, "in") #pin36
+
+spi = SPI("/dev/spidev1.0", 0, 1000000)
 
 old_state = 0
 position = 0
@@ -122,7 +125,7 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         if labels:
             caption = '%d%% %d %d %s' % (percent, bbox.xmin, bbox.ymin, labels[obj.id])
         else:
-            caption = '%d %d %d' % (x + w/2, y + h/2, int(encoder() or 0))
+            caption = '%d %d %d' % (x + w/2, y + h/2, position)
 
         motor_IO(x +w/2, y+h/2)
 
@@ -160,39 +163,39 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
 
 
-def encoder():
-    global old_state
-    global position
-    state = old_state & 3
-    if(enc1.read()) : state |= 4
-    if(enc2.read()) : state |= 8
-    old_state = (state >> 2)    
-    if state==1: 
-        position += 1
-    elif state==7:
-        position += 1
-    elif state==8:
-        position += 1
-    elif state==14: 
-        position += 1
-    elif state==2:
-        position -= 1
-    elif state==4:
-        position -= 1
-    elif state==11:
-        position -= 1
-    elif state==13:
-        position -= 1
-    elif state==3:
-        position += 2
-    elif state==12:
-        position += 2
-    elif state==6:
-        position -= 2
-    elif state==9:
-        position -= 2
-    else:
-        return position
+# def encoder():
+#     global old_state
+#     global position
+#     state = old_state & 3
+#     if(enc1.read()) : state |= 4
+#     if(enc2.read()) : state |= 8
+#     old_state = (state >> 2)    
+#     if state==1: 
+#         position += 1
+#     elif state==7:
+#         position += 1
+#     elif state==8:
+#         position += 1
+#     elif state==14: 
+#         position += 1
+#     elif state==2:
+#         position -= 1
+#     elif state==4:
+#         position -= 1
+#     elif state==11:
+#         position -= 1
+#     elif state==13:
+#         position -= 1
+#     elif state==3:
+#         position += 2
+#     elif state==12:
+#         position += 2
+#     elif state==6:
+#         position -= 2
+#     elif state==9:
+#         position -= 2
+#     else:
+#         return position
 
 
 
@@ -216,24 +219,24 @@ def motor_IO(x, y):
         pwm1.duty_cycle = 0
         pwm1.enable()
 
-    # if y > 450 :
-    #     in3.write(False)
-    #     in4.write(True)
-    #     pwm2.frequency = 1e3
-    #     pwm2.duty_cycle = 1.0
-    #     pwm2.enable()
-    # elif y < 350:
-    #     in3.write(True)
-    #     in4.write(False)
-    #     pwm2.frequency = 1e3
-    #     pwm2.duty_cycle = 1.0
-    #     pwm2.enable()
-    # else:
-    #     in3.write(False)
-    #     in4.write(False)
-    #     pwm2.frequency = 1e3
-    #     pwm2.duty_cycle = 1.0
-    #     pwm2.enable()
+    if y > 450 :
+        in3.write(False)
+        in4.write(True)
+        pwm2.frequency = 1e3
+        pwm2.duty_cycle = 1.0
+        pwm2.enable()
+    elif y < 350:
+        in3.write(True)
+        in4.write(False)
+        pwm2.frequency = 1e3
+        pwm2.duty_cycle = 1.0
+        pwm2.enable()
+    else:
+        in3.write(False)
+        in4.write(False)
+        pwm2.frequency = 1e3
+        pwm2.duty_cycle = 1.0
+        pwm2.enable()
 
 
 
