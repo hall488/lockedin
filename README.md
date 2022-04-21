@@ -31,7 +31,7 @@ python3 setup.py sdist
 python3 setup.py bdist
 export FLASK_ENV=development
 python3 -m edgetpuvision.detect \
---source /dev/video1:YUY2:864x480:20/1  \
+--source /dev/video1:YUY2:1024x768:15/1  \
 --model ${TEST_DATA}/ssd_mobilenet_v2_face_quant_postprocess_edgetpu.tflite
 
 ```
