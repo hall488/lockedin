@@ -147,6 +147,8 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
     
     if len(objs) != 0 :
         motor_IO(xsum/len(objs)+wsum/len(objs)/2, ysum/len(objs)+hsum/len(objs)/2)
+    else :
+        motor_IO(400, 400)
         
 
     ox = x0 + 20
