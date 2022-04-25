@@ -114,6 +114,11 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
     #     pwm2.duty_cycle = .75
     #     pwm2.enable()
 
+    xsum = 0
+    ysum = 0
+    hsum = 0
+    wsum = 0
+
     for obj in objs:         
 
         color = get_color(obj.id)
@@ -127,7 +132,10 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         else:
             caption = '%d %d %d' % (x + w/2, y + h/2, position)
 
-        motor_IO(x +w/2, y+h/2)
+        xsum += x
+        ysum += y
+        hsum += h
+        wsum += w
 
         doc += svg.Rect(x=x, y=y, width=w, height=h,
                         style='stroke:%s' % color, _class='bbox')
@@ -137,6 +145,8 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         t += svg.TSpan(caption, dy='1em')
         doc += t
     
+    if len(objs) != 0 :
+        motor_IO(xsum/len(obj)+wsum/len(obj)/2, ysum/len(obj)+hsum/len(obj)/2)
 
     ox = x0 + 20
     oy1, oy2 = y0 + 20 + font_size, y0 + height - 20
