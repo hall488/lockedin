@@ -130,7 +130,7 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         if labels:
             caption = '%d%% %d %d %s' % (percent, bbox.xmin, bbox.ymin, labels[obj.id])
         else:
-            caption = '%d %d %d' % (x + w/2, y + h/2, position)
+            caption = '%d %d %d' % (x + w/2, y + h/2, objs)
 
         xsum += x
         ysum += y
@@ -146,7 +146,8 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
         doc += t
     
     if len(objs) != 0 :
-        motor_IO(xsum/len(obj)+wsum/len(obj)/2, ysum/len(obj)+hsum/len(obj)/2)
+        motor_IO(xsum/len(objs)+wsum/len(objs)/2, ysum/len(objs)+hsum/len(objs)/2)
+        
 
     ox = x0 + 20
     oy1, oy2 = y0 + 20 + font_size, y0 + height - 20
