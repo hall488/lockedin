@@ -1,31 +1,3 @@
-# Copyright 2019 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-"""A demo which runs object detection on camera frames.
-
-export TEST_DATA=/usr/lib/python3/dist-packages/edgetpu/test_data
-
-Run face detection model:
-python3 -m edgetpuvision.detect \
-  --model ${TEST_DATA}/mobilenet_ssd_v2_face_quant_postprocess_edgetpu.tflite
-
-Run coco model:
-python3 -m edgetpuvision.detect \
-  --model ${TEST_DATA}/mobilenet_ssd_v2_coco_quant_postprocess_edgetpu.tflite \
-  --labels ${TEST_DATA}/coco_labels.txt
-"""
-
 import argparse
 import colorsys
 import itertools
@@ -43,8 +15,6 @@ from periphery import SPI
 from . import svg
 from . import utils
 from .apps import run_app
-
-
 
 #google "Coral GPIO"
 in1 = GPIO("/dev/gpiochip2", 9, "out") #pin 17
@@ -100,19 +70,6 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
                   viewBox='%s %s %s %s' % layout.window,
                   font_size=font_size, font_family='monospace', font_weight=500)
     doc += defs
-
-    # if len(objs) == 0:
-    #     in1.write(False)
-    #     in2.write(False)
-    #     pwm1.frequency = 1e3
-    #     pwm1.duty_cycle = .75
-    #     pwm1.enable()
-
-    #     in3.write(False)
-    #     in4.write(False)
-    #     pwm2.frequency = 1e3
-    #     pwm2.duty_cycle = .75
-    #     pwm2.enable()
 
     xsum = 0
     ysum = 0
@@ -174,8 +131,6 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 
     return str(doc)
 
-
-
 # def encoder():
 #     global old_state
 #     global position
@@ -209,8 +164,6 @@ def overlay(title, objs, get_color, labels, inference_time, inference_rate, layo
 #         position -= 2
 #     else:
 #         return position
-
-
 
 def motor_IO(x, y):
     if x > 500 :
@@ -250,8 +203,6 @@ def motor_IO(x, y):
         pwm2.frequency = 1e3
         pwm2.duty_cycle = 1.0
         pwm2.enable()
-
-
 
 def print_results(inference_rate, objs):
     print('\nInference (rate=%.2f fps):' % inference_rate)
@@ -326,19 +277,8 @@ def add_render_gen_args(parser):
     parser.add_argument('--print', default=False, action='store_true',
                         help='Print inference results')
 
-#@app.route("/")
-def main():
-    
+def main():    
     run_app(add_render_gen_args, render_gen)
-    
-#     templateData = {
-#     }
-#    # Pass the template data into the template main.html and return it to the user
-#     return render_template('main.html', **templateData)
-
-#@app.route("/<changePin>/<action>")
-#def action(changePin, action):
-#    print("yo")
 
 if __name__ == '__main__':  
     #app.run(host='0.0.0.0', port=5000, debug=True)      
